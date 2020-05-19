@@ -34,7 +34,7 @@ class DataFactory implements com.metaring.generator.model.factories.DataFactory 
 «val dataFQN = data.nativeFullyQualifiedName»
 «val dataAttributeTypes = data.attributes.map[it.type]»
 «val dataAttributeNames = data.attributes.map[it.valueName]»
-«FOR attributeFQN : data.attributes.filter[attribute | !attribute.unknown].map[it.nativeFullyQualifiedNameForImport].filter[it !== null && it != dataFQN].toSet»
+«FOR attributeFQN : data.attributes.filter[attribute | !attribute.unknown].map[it.nativeFullyQualifiedNameForImport].filter[it !== null && !it.isInSamePackage(dataFQN)].toSet»
 import «attributeFQN»;
 «ENDFOR»
 import «"Tools".combineWithSystemNamespace»;
